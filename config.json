@@ -1,0 +1,11 @@
+{
+  "dsn": "",
+  "queriesFile": "critical-queries.json",
+  "outputDir": "performance-results",
+  "iterations": 50,
+  "concurrency": 5,
+  "warmupIterations": 100,
+  "label": "baseline",
+  "timeoutSeconds": 30,
+  "verbose": false
+}

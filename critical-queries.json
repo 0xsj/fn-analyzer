@@ -1,0 +1,1112 @@
+[
+  {
+    "name": "consistency_AccountAlert_Business",
+    "description": "Testing join with type mismatch: AccountAlert.BusinessId (CHAR(36) BINARY(null)) vs Business.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`description` AS source_description, s.`createdAt` AS source_createdAt, t.`id` AS target_id, t.`name` AS target_name, t.`website` AS target_website  FROM `account_alert` s JOIN `businesses` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_AccountAlert_User",
+    "description": "Testing join with type mismatch: AccountAlert.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`description` AS source_description, s.`createdAt` AS source_createdAt, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `account_alert` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_AuditLog_User",
+    "description": "Testing join with type mismatch: AuditLog.UserId (VARCHAR(255)(255)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`keywords` AS source_keywords, s.`ipAddress` AS source_ipAddress, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `audit_log` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessCityExclusion_City",
+    "description": "Testing join with type mismatch: BusinessCityExclusion.CityId (VARCHAR(24)(24)) vs City.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`CityId` AS source_CityId, t.`id` AS target_id, t.`name` AS target_name, t.`expandedName` AS target_expandedName  FROM `business_city_exclusions` s JOIN `cities` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessCitySubscription_City",
+    "description": "Testing join with type mismatch: BusinessCitySubscription.CityId (VARCHAR(24)(24)) vs City.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`CityId` AS source_CityId, t.`id` AS target_id, t.`name` AS target_name, t.`expandedName` AS target_expandedName  FROM `business_city_subscriptions` s JOIN `cities` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessPresetSubscription_StructureType",
+    "description": "Testing join with type mismatch: BusinessPresetSubscription.StructureTypeId (VARCHAR(24)(24)) vs StructureType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name  FROM `business_preset_subscriptions` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessPresetSubscription_IncidentType",
+    "description": "Testing join with type mismatch: BusinessPresetSubscription.IncidentTypeId (VARCHAR(24)(24)) vs IncidentType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name, t.`DamageTypeId` AS target_DamageTypeId  FROM `business_preset_subscriptions` s JOIN `incident_types` t ON s.`IncidentTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessStateSubscription_State",
+    "description": "Testing join with type mismatch: BusinessStateSubscription.StateId (VARCHAR(24)(24)) vs State.id (CHAR(2)(2))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`StateId` AS source_StateId, s.`allCounties` AS source_allCounties, t.`id` AS target_id, t.`name` AS target_name, t.`fipsCode` AS target_fipsCode  FROM `business_state_subscriptions` s JOIN `states` t ON s.`StateId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessZipCodeExclusion_ZipCode",
+    "description": "Testing join with type mismatch: BusinessZipCodeExclusion.ZipCodeId (VARCHAR(24)(24)) vs ZipCode.id (VARCHAR(10)(10))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`CoordinatesId` AS target_CoordinatesId, t.`StateId` AS target_StateId  FROM `business_zip_code_exclusions` s JOIN `zip_codes` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_BusinessZipCodeSubscription_ZipCode",
+    "description": "Testing join with type mismatch: BusinessZipCodeSubscription.ZipCodeId (VARCHAR(24)(24)) vs ZipCode.id (VARCHAR(10)(10))",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`CoordinatesId` AS target_CoordinatesId, t.`StateId` AS target_StateId  FROM `business_zip_code_subscriptions` s JOIN `zip_codes` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_IncidentClosed_User",
+    "description": "Testing join with type mismatch: IncidentClosed.CreatorId (VARCHAR(36)(36)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`IncidentId` AS source_IncidentId, s.`CreatorId` AS source_CreatorId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `incident_closed` s JOIN `users` t ON s.`CreatorId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_IncidentCreatorChange_User",
+    "description": "Testing join with type mismatch: IncidentCreatorChange.OldCreatorId (VARCHAR(36)(36)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`IncidentId` AS source_IncidentId, s.`OldCreatorId` AS source_OldCreatorId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `incident_creator_changes` s JOIN `users` t ON s.`OldCreatorId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_IncidentCreatorChange_User",
+    "description": "Testing join with type mismatch: IncidentCreatorChange.NewCreatorId (VARCHAR(36)(36)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`IncidentId` AS source_IncidentId, s.`OldCreatorId` AS source_OldCreatorId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `incident_creator_changes` s JOIN `users` t ON s.`NewCreatorId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_IncidentCreatorChange_User",
+    "description": "Testing join with type mismatch: IncidentCreatorChange.ChangedById (VARCHAR(36)(36)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`id` AS source_id, s.`IncidentId` AS source_IncidentId, s.`OldCreatorId` AS source_OldCreatorId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `incident_creator_changes` s JOIN `users` t ON s.`ChangedById` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserBusiness_User",
+    "description": "Testing join with type mismatch: UserBusiness.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`BusinessId` AS source_BusinessId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_businesses` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserCityExclusion_City",
+    "description": "Testing join with type mismatch: UserCityExclusion.CityId (VARCHAR(24)(24)) vs City.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`CityId` AS source_CityId, t.`id` AS target_id, t.`name` AS target_name, t.`expandedName` AS target_expandedName  FROM `user_city_exclusions` s JOIN `cities` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserCityExclusion_User",
+    "description": "Testing join with type mismatch: UserCityExclusion.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`CityId` AS source_CityId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_city_exclusions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserCountyExclusion_User",
+    "description": "Testing join with type mismatch: UserCountyExclusion.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`CountyId` AS source_CountyId, s.`allCities` AS source_allCities, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_county_exclusions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserCountySubscription_User",
+    "description": "Testing join with type mismatch: UserCountySubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`CountyId` AS source_CountyId, s.`allCities` AS source_allCities, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_county_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserDamageTypeSubscription_User",
+    "description": "Testing join with type mismatch: UserDamageTypeSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`DamageTypeId` AS source_DamageTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_damage_type_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserDamageTypeSubscription_DamageType",
+    "description": "Testing join with type mismatch: UserDamageTypeSubscription.DamageTypeId (VARCHAR(24)(24)) vs DamageType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`DamageTypeId` AS source_DamageTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`name` AS target_name  FROM `user_damage_type_subscriptions` s JOIN `damage_types` t ON s.`DamageTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserPresetSubscription_User",
+    "description": "Testing join with type mismatch: UserPresetSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_preset_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserPresetSubscription_StructureType",
+    "description": "Testing join with type mismatch: UserPresetSubscription.StructureTypeId (VARCHAR(24)(24)) vs StructureType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name  FROM `user_preset_subscriptions` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserPresetSubscription_IncidentType",
+    "description": "Testing join with type mismatch: UserPresetSubscription.IncidentTypeId (VARCHAR(24)(24)) vs IncidentType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name, t.`DamageTypeId` AS target_DamageTypeId  FROM `user_preset_subscriptions` s JOIN `incident_types` t ON s.`IncidentTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserSetting_Sound",
+    "description": "Testing join with type mismatch: UserSetting.SoundId (VARCHAR(24)(24)) vs Sound.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`id` AS source_id, s.`value` AS source_value, s.`SoundId` AS source_SoundId, t.`id` AS target_id, t.`name` AS target_name, t.`ChannelId` AS target_ChannelId  FROM `user_settings` s JOIN `sounds` t ON s.`SoundId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStateSubscription_State",
+    "description": "Testing join with type mismatch: UserStateSubscription.StateId (VARCHAR(24)(24)) vs State.id (CHAR(2)(2))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`StateId` AS source_StateId, s.`allCounties` AS source_allCounties, t.`id` AS target_id, t.`name` AS target_name, t.`fipsCode` AS target_fipsCode  FROM `user_state_subscriptions` s JOIN `states` t ON s.`StateId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStateSubscription_User",
+    "description": "Testing join with type mismatch: UserStateSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`StateId` AS source_StateId, s.`allCounties` AS source_allCounties, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_state_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStructureIncidentSubscription_User",
+    "description": "Testing join with type mismatch: UserStructureIncidentSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_structure_incident_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStructureIncidentSubscription_StructureType",
+    "description": "Testing join with type mismatch: UserStructureIncidentSubscription.StructureTypeId (VARCHAR(24)(24)) vs StructureType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`name` AS target_name  FROM `user_structure_incident_subscriptions` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStructureIncidentSubscription_IncidentType",
+    "description": "Testing join with type mismatch: UserStructureIncidentSubscription.IncidentTypeId (VARCHAR(24)(24)) vs IncidentType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`name` AS target_name, t.`DamageTypeId` AS target_DamageTypeId  FROM `user_structure_incident_subscriptions` s JOIN `incident_types` t ON s.`IncidentTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStructureTypeSubscription_User",
+    "description": "Testing join with type mismatch: UserStructureTypeSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_structure_type_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserStructureTypeSubscription_StructureType",
+    "description": "Testing join with type mismatch: UserStructureTypeSubscription.StructureTypeId (VARCHAR(24)(24)) vs StructureType.id (VARCHAR(255)(255))",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`name` AS target_name  FROM `user_structure_type_subscriptions` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserZipCodeExclusion_User",
+    "description": "Testing join with type mismatch: UserZipCodeExclusion.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_zip_code_exclusions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserZipCodeExclusion_ZipCode",
+    "description": "Testing join with type mismatch: UserZipCodeExclusion.ZipCodeId (VARCHAR(24)(24)) vs ZipCode.id (VARCHAR(10)(10))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`CoordinatesId` AS target_CoordinatesId, t.`StateId` AS target_StateId  FROM `user_zip_code_exclusions` s JOIN `zip_codes` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserZipCodeSubscription_User",
+    "description": "Testing join with type mismatch: UserZipCodeSubscription.UserId (CHAR(36) BINARY(null)) vs User.id (VARCHAR(24)(24))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_zip_code_subscriptions` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "consistency_UserZipCodeSubscription_ZipCode",
+    "description": "Testing join with type mismatch: UserZipCodeSubscription.ZipCodeId (VARCHAR(24)(24)) vs ZipCode.id (VARCHAR(10)(10))",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`ZipCodeId` AS source_ZipCodeId, s.`radius` AS source_radius, t.`id` AS target_id, t.`CoordinatesId` AS target_CoordinatesId, t.`StateId` AS target_StateId  FROM `user_zip_code_subscriptions` s JOIN `zip_codes` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 10
+  },
+  {
+    "name": "datatype_AddressAssessment",
+    "description": "Testing model with 1 datatype issues: AddressAssessment",
+    "sql": "SELECT `id` FROM `address_assessments` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_ConnectionPoolState",
+    "description": "Testing model with 6 datatype issues: ConnectionPoolState",
+    "sql": "SELECT `id`, `id`, `available`, `used`, `max`, `pending` FROM `connection_pool_states` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_DBMetrics",
+    "description": "Testing model with 10 datatype issues: DBMetrics",
+    "sql": "SELECT `id`, `id`, `totalQueries`, `slowQueries`, `errors`, `connectionTimeouts`, `peakConnectionsUsed`, `currentConnectionsUsed`, `maxConnections`, `pendingConnections` FROM `db_metrics` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentAlarmChanged",
+    "description": "Testing model with 1 datatype issues: IncidentAlarmChanged",
+    "sql": "SELECT `id` FROM `incident_alarm_changed` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentTypeChange",
+    "description": "Testing model with 1 datatype issues: IncidentTypeChange",
+    "sql": "SELECT `id` FROM `incident_type_changes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentViewed",
+    "description": "Testing model with 1 datatype issues: IncidentViewed",
+    "sql": "SELECT `id` FROM `incident_viewed` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_NotificationMetric",
+    "description": "Testing model with 7 datatype issues: NotificationMetric",
+    "sql": "SELECT `id`, `totalTime`, `subscriptionLookupTime`, `soundLookupTime`, `preparationTime`, `oneSignalSendTime`, `recipientCount` FROM `notification_metrics` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_QueryMetrics",
+    "description": "Testing model with 3 datatype issues: QueryMetrics",
+    "sql": "SELECT `id`, `id`, `rowCount` FROM `query_metrics` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_RequestMetrics",
+    "description": "Testing model with 3 datatype issues: RequestMetrics",
+    "sql": "SELECT `id`, `id`, `statusCode` FROM `request_metrics` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_RequestStep",
+    "description": "Testing model with 3 datatype issues: RequestStep",
+    "sql": "SELECT `id`, `id`, `requestMetricId` FROM `request_steps` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_AccessRequest",
+    "description": "Testing model with 1 datatype issues: AccessRequest",
+    "sql": "SELECT `id` FROM `access_requests` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_AccountAlert",
+    "description": "Testing model with 2 datatype issues: AccountAlert",
+    "sql": "SELECT `id`, `updatedAt` FROM `account_alert` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_AccountType",
+    "description": "Testing model with 1 datatype issues: AccountType",
+    "sql": "SELECT `id` FROM `account_types` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Address",
+    "description": "Testing model with 2 datatype issues: Address",
+    "sql": "SELECT `id`, `CountyId` FROM `addresses` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Alert",
+    "description": "Testing model with 1 datatype issues: Alert",
+    "sql": "SELECT `id` FROM `alerts` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_AuditLog",
+    "description": "Testing model with 2 datatype issues: AuditLog",
+    "sql": "SELECT `id`, `keywords` FROM `audit_log` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Business",
+    "description": "Testing model with 3 datatype issues: Business",
+    "sql": "SELECT `id`, `OwnerId`, `IndustryId` FROM `businesses` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessCityExclusion",
+    "description": "Testing model with 2 datatype issues: BusinessCityExclusion",
+    "sql": "SELECT `BusinessId`, `CityId` FROM `business_city_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessCitySubscription",
+    "description": "Testing model with 2 datatype issues: BusinessCitySubscription",
+    "sql": "SELECT `BusinessId`, `CityId` FROM `business_city_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessCountyExclusion",
+    "description": "Testing model with 2 datatype issues: BusinessCountyExclusion",
+    "sql": "SELECT `BusinessId`, `CountyId` FROM `business_county_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessCountySubscription",
+    "description": "Testing model with 2 datatype issues: BusinessCountySubscription",
+    "sql": "SELECT `BusinessId`, `CountyId` FROM `business_county_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessPresetSubscription",
+    "description": "Testing model with 3 datatype issues: BusinessPresetSubscription",
+    "sql": "SELECT `BusinessId`, `StructureTypeId`, `IncidentTypeId` FROM `business_preset_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessStateSubscription",
+    "description": "Testing model with 3 datatype issues: BusinessStateSubscription",
+    "sql": "SELECT `BusinessId`, `StateId`, `radius` FROM `business_state_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessZipCodeExclusion",
+    "description": "Testing model with 3 datatype issues: BusinessZipCodeExclusion",
+    "sql": "SELECT `BusinessId`, `ZipCodeId`, `radius` FROM `business_zip_code_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_BusinessZipCodeSubscription",
+    "description": "Testing model with 3 datatype issues: BusinessZipCodeSubscription",
+    "sql": "SELECT `BusinessId`, `ZipCodeId`, `radius` FROM `business_zip_code_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_City",
+    "description": "Testing model with 2 datatype issues: City",
+    "sql": "SELECT `id`, `CoordinatesId` FROM `cities` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_CityIntersection",
+    "description": "Testing model with 1 datatype issues: CityIntersection",
+    "sql": "SELECT `id` FROM `city_intersections` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Conversation",
+    "description": "Testing model with 3 datatype issues: Conversation",
+    "sql": "SELECT `id`, `OwnerId`, `OwnerId` FROM `conversations` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_ConversationParticipant",
+    "description": "Testing model with 3 datatype issues: ConversationParticipant",
+    "sql": "SELECT `ConversationId`, `UserId`, `UserId` FROM `conversation_participants` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Coordinates",
+    "description": "Testing model with 1 datatype issues: Coordinates",
+    "sql": "SELECT `id` FROM `coordinates` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_County",
+    "description": "Testing model with 3 datatype issues: County",
+    "sql": "SELECT `id`, `StateId`, `CoordinatesId` FROM `counties` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_CountyIntersection",
+    "description": "Testing model with 1 datatype issues: CountyIntersection",
+    "sql": "SELECT `id` FROM `county_intersections` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_DamageType",
+    "description": "Testing model with 1 datatype issues: DamageType",
+    "sql": "SELECT `id` FROM `damage_types` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_FavoriteIncident",
+    "description": "Testing model with 3 datatype issues: FavoriteIncident",
+    "sql": "SELECT `UserId`, `UserId`, `IncidentId` FROM `user_favorite_incidents` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_File",
+    "description": "Testing model with 4 datatype issues: File",
+    "sql": "SELECT `id`, `size`, `createdAt`, `updatedAt` FROM `files` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Image",
+    "description": "Testing model with 1 datatype issues: Image",
+    "sql": "SELECT `id` FROM `images` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Incident",
+    "description": "Testing model with 5 datatype issues: Incident",
+    "sql": "SELECT `legalVerified`, `priority`, `StructureTypeId`, `IncidentTypeId`, `CreatorId` FROM `incidents` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentAddressChange",
+    "description": "Testing model with 6 datatype issues: IncidentAddressChange",
+    "sql": "SELECT `id`, `IncidentId`, `CreatorId`, `CreatorId`, `OldAddressId`, `NewAddressId` FROM `incident_address_changes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentClosed",
+    "description": "Testing model with 2 datatype issues: IncidentClosed",
+    "sql": "SELECT `id`, `IncidentId` FROM `incident_closed` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentCreatorChange",
+    "description": "Testing model with 1 datatype issues: IncidentCreatorChange",
+    "sql": "SELECT `id` FROM `incident_creator_changes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentLocationNote",
+    "description": "Testing model with 4 datatype issues: IncidentLocationNote",
+    "sql": "SELECT `id`, `IncidentId`, `CreatorId`, `CreatorId` FROM `incident_location_notes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentNote",
+    "description": "Testing model with 5 datatype issues: IncidentNote",
+    "sql": "SELECT `id`, `description`, `isOriginal`, `CreatorId`, `CreatorId` FROM `incident_notes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentPreset",
+    "description": "Testing model with 1 datatype issues: IncidentPreset",
+    "sql": "SELECT `id` FROM `incident_presets` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentPresetShortcut",
+    "description": "Testing model with 3 datatype issues: IncidentPresetShortcut",
+    "sql": "SELECT `code`, `StructureTypeId`, `IncidentTypeId` FROM `incident_preset_shortcuts` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentRaw",
+    "description": "Testing model with 3 datatype issues: IncidentRaw",
+    "sql": "SELECT `id`, `priority`, `comments` FROM `incidents_raw` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentType",
+    "description": "Testing model with 2 datatype issues: IncidentType",
+    "sql": "SELECT `id`, `id` FROM `incident_types` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_IncidentUpdate",
+    "description": "Testing model with 4 datatype issues: IncidentUpdate",
+    "sql": "SELECT `id`, `isOriginal`, `CreatorId`, `CreatorId` FROM `incident_updates` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Industry",
+    "description": "Testing model with 1 datatype issues: Industry",
+    "sql": "SELECT `id` FROM `industries` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Message",
+    "description": "Testing model with 2 datatype issues: Message",
+    "sql": "SELECT `id`, `SenderId` FROM `messages` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Notification",
+    "description": "Testing model with 1 datatype issues: Notification",
+    "sql": "SELECT `id` FROM `notifications` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_PasswordReset",
+    "description": "Testing model with 1 datatype issues: PasswordReset",
+    "sql": "SELECT `id` FROM `password_resets` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Role",
+    "description": "Testing model with 1 datatype issues: Role",
+    "sql": "SELECT `id` FROM `roles` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Setting",
+    "description": "Testing model with 1 datatype issues: Setting",
+    "sql": "SELECT `id` FROM `settings` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Sound",
+    "description": "Testing model with 1 datatype issues: Sound",
+    "sql": "SELECT `id` FROM `sounds` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_State",
+    "description": "Testing model with 1 datatype issues: State",
+    "sql": "SELECT `id` FROM `states` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_StructureType",
+    "description": "Testing model with 2 datatype issues: StructureType",
+    "sql": "SELECT `id`, `id` FROM `structure_types` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Token",
+    "description": "Testing model with 1 datatype issues: Token",
+    "sql": "SELECT `id` FROM `tokens` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_User",
+    "description": "Testing model with 3 datatype issues: User",
+    "sql": "SELECT `id`, `id`, `location` FROM `users` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserBusiness",
+    "description": "Testing model with 2 datatype issues: UserBusiness",
+    "sql": "SELECT `UserId`, `BusinessId` FROM `user_businesses` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserCityExclusion",
+    "description": "Testing model with 2 datatype issues: UserCityExclusion",
+    "sql": "SELECT `UserId`, `CityId` FROM `user_city_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserCitySubscription",
+    "description": "Testing model with 4 datatype issues: UserCitySubscription",
+    "sql": "SELECT `UserId`, `UserId`, `CityId`, `CityId` FROM `user_city_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserCountyExclusion",
+    "description": "Testing model with 2 datatype issues: UserCountyExclusion",
+    "sql": "SELECT `UserId`, `CountyId` FROM `user_county_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserCountySubscription",
+    "description": "Testing model with 2 datatype issues: UserCountySubscription",
+    "sql": "SELECT `UserId`, `CountyId` FROM `user_county_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserDamageTypeSubscription",
+    "description": "Testing model with 2 datatype issues: UserDamageTypeSubscription",
+    "sql": "SELECT `DamageTypeId`, `UserId` FROM `user_damage_type_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserIncidentArchive",
+    "description": "Testing model with 3 datatype issues: UserIncidentArchive",
+    "sql": "SELECT `IncidentId`, `UserId`, `UserId` FROM `user_incident_archives` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserPresetSubscription",
+    "description": "Testing model with 3 datatype issues: UserPresetSubscription",
+    "sql": "SELECT `UserId`, `StructureTypeId`, `IncidentTypeId` FROM `user_preset_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserRole",
+    "description": "Testing model with 3 datatype issues: UserRole",
+    "sql": "SELECT `RoleId`, `UserId`, `UserId` FROM `user_roles` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserSetting",
+    "description": "Testing model with 3 datatype issues: UserSetting",
+    "sql": "SELECT `id`, `SoundId`, `UserId` FROM `user_settings` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserStateSubscription",
+    "description": "Testing model with 2 datatype issues: UserStateSubscription",
+    "sql": "SELECT `UserId`, `StateId` FROM `user_state_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserStructureIncidentSubscription",
+    "description": "Testing model with 5 datatype issues: UserStructureIncidentSubscription",
+    "sql": "SELECT `StructureTypeId`, `IncidentTypeId`, `UserId`, `SoundId`, `SoundId` FROM `user_structure_incident_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserStructureTypeSubscription",
+    "description": "Testing model with 2 datatype issues: UserStructureTypeSubscription",
+    "sql": "SELECT `StructureTypeId`, `UserId` FROM `user_structure_type_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserZipCodeExclusion",
+    "description": "Testing model with 3 datatype issues: UserZipCodeExclusion",
+    "sql": "SELECT `UserId`, `ZipCodeId`, `radius` FROM `user_zip_code_exclusions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_UserZipCodeSubscription",
+    "description": "Testing model with 3 datatype issues: UserZipCodeSubscription",
+    "sql": "SELECT `UserId`, `ZipCodeId`, `radius` FROM `user_zip_code_subscriptions` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_Webhook",
+    "description": "Testing model with 3 datatype issues: Webhook",
+    "sql": "SELECT `userId`, `createdAt`, `updatedAt` FROM `webhooks` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "datatype_ZipCode",
+    "description": "Testing model with 1 datatype issues: ZipCode",
+    "sql": "SELECT `id` FROM `zip_codes` LIMIT 100",
+    "weight": 7
+  },
+  {
+    "name": "relationship_RequestMetrics_RequestStep",
+    "description": "Testing join with missing foreign key constraint: RequestMetrics.steps -> RequestStep (requestMetricId)",
+    "sql": "SELECT s.`id` AS source_id, s.`timestamp` AS source_timestamp, s.`route` AS source_route, t.`id` AS target_id, t.`requestMetricId` AS target_requestMetricId, t.`name` AS target_name  FROM `request_metrics` s JOIN `request_steps` t ON s.`requestMetricId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Address_City",
+    "description": "Testing join with missing foreign key constraint: Address.City -> City (CityId)",
+    "sql": "SELECT s.`id` AS source_id, s.`line1` AS source_line1, s.`line2` AS source_line2, t.`id` AS target_id, t.`name` AS target_name, t.`expandedName` AS target_expandedName  FROM `addresses` s JOIN `cities` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Address_Incident",
+    "description": "Testing join with missing foreign key constraint: Address.Incidents -> Incident (AddressId)",
+    "sql": "SELECT s.`id` AS source_id, s.`line1` AS source_line1, s.`line2` AS source_line2, t.`id` AS target_id, t.`verified` AS target_verified, t.`legalVerified` AS target_legalVerified  FROM `addresses` s JOIN `incidents` t ON s.`AddressId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Alert_User",
+    "description": "Testing join with missing foreign key constraint: Alert.Recipient -> User (RecipientId)",
+    "sql": "SELECT s.`id` AS source_id, s.`title` AS source_title, s.`subtitle` AS source_subtitle, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `alerts` s JOIN `users` t ON s.`RecipientId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Alert_Incident",
+    "description": "Testing join with missing foreign key constraint: Alert.Incident -> Incident (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`title` AS source_title, s.`subtitle` AS source_subtitle, t.`id` AS target_id, t.`verified` AS target_verified, t.`legalVerified` AS target_legalVerified  FROM `alerts` s JOIN `incidents` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_AuditLog_Message",
+    "description": "Testing join with missing foreign key constraint: AuditLog.Message -> Message (messageId)",
+    "sql": "SELECT s.`id` AS source_id, s.`keywords` AS source_keywords, s.`ipAddress` AS source_ipAddress, t.`id` AS target_id, t.`type` AS target_type, t.`content` AS target_content  FROM `audit_log` s JOIN `messages` t ON s.`messageId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_User",
+    "description": "Testing join with missing foreign key constraint: Business.Users -> User (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `businesses` s JOIN `users` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessCitySubscription",
+    "description": "Testing join with missing foreign key constraint: Business.CitySubscriptions -> BusinessCitySubscription (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`CityId` AS target_CityId  FROM `businesses` s JOIN `business_city_subscriptions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessCountySubscription",
+    "description": "Testing join with missing foreign key constraint: Business.CountySubscriptions -> BusinessCountySubscription (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `businesses` s JOIN `business_county_subscriptions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessCountyExclusion",
+    "description": "Testing join with missing foreign key constraint: Business.CountyExclusions -> BusinessCountyExclusion (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `businesses` s JOIN `business_county_exclusions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessCityExclusion",
+    "description": "Testing join with missing foreign key constraint: Business.CityExclusions -> BusinessCityExclusion (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`CityId` AS target_CityId  FROM `businesses` s JOIN `business_city_exclusions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessStateSubscription",
+    "description": "Testing join with missing foreign key constraint: Business.StateSubscriptions -> BusinessStateSubscription (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`StateId` AS target_StateId, t.`allCounties` AS target_allCounties  FROM `businesses` s JOIN `business_state_subscriptions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessPresetSubscription",
+    "description": "Testing join with missing foreign key constraint: Business.PresetSubscriptions -> BusinessPresetSubscription (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`StructureTypeId` AS target_StructureTypeId, t.`IncidentTypeId` AS target_IncidentTypeId  FROM `businesses` s JOIN `business_preset_subscriptions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessZipCodeSubscription",
+    "description": "Testing join with missing foreign key constraint: Business.ZipCodeSubscriptions -> BusinessZipCodeSubscription (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `businesses` s JOIN `business_zip_code_subscriptions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Business_BusinessZipCodeExclusion",
+    "description": "Testing join with missing foreign key constraint: Business.ZipCodeExclusions -> BusinessZipCodeExclusion (BusinessId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`website` AS source_website, t.`BusinessId` AS target_BusinessId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `businesses` s JOIN `business_zip_code_exclusions` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_BusinessPresetSubscription_Business",
+    "description": "Testing join with missing foreign key constraint: BusinessPresetSubscription.Business -> Business (BusinessId)",
+    "sql": "SELECT s.`BusinessId` AS source_BusinessId, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name, t.`website` AS target_website  FROM `business_preset_subscriptions` s JOIN `businesses` t ON s.`BusinessId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_City_Address",
+    "description": "Testing join with missing foreign key constraint: City.Addresses -> Address (CityId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`expandedName` AS source_expandedName, t.`id` AS target_id, t.`line1` AS target_line1, t.`line2` AS target_line2  FROM `cities` s JOIN `addresses` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_City_BusinessCitySubscription",
+    "description": "Testing join with missing foreign key constraint: City.BusinessCitySubscriptions -> BusinessCitySubscription (CityId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`expandedName` AS source_expandedName, t.`BusinessId` AS target_BusinessId, t.`CityId` AS target_CityId  FROM `cities` s JOIN `business_city_subscriptions` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_City_BusinessCityExclusion",
+    "description": "Testing join with missing foreign key constraint: City.BusinessCityExclusions -> BusinessCityExclusion (CityId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`expandedName` AS source_expandedName, t.`BusinessId` AS target_BusinessId, t.`CityId` AS target_CityId  FROM `cities` s JOIN `business_city_exclusions` t ON s.`CityId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Conversation_Message",
+    "description": "Testing join with missing foreign key constraint: Conversation.Messages -> Message (ConversationId)",
+    "sql": "SELECT s.`id` AS source_id, s.`createdAt` AS source_createdAt, s.`updatedAt` AS source_updatedAt, t.`id` AS target_id, t.`type` AS target_type, t.`content` AS target_content  FROM `conversations` s JOIN `messages` t ON s.`ConversationId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Conversation_ConversationParticipant",
+    "description": "Testing join with missing foreign key constraint: Conversation.ConversationParticipants -> ConversationParticipant (ConversationId)",
+    "sql": "SELECT s.`id` AS source_id, s.`createdAt` AS source_createdAt, s.`updatedAt` AS source_updatedAt, t.`ConversationId` AS target_ConversationId, t.`UserId` AS target_UserId  FROM `conversations` s JOIN `conversation_participants` t ON s.`ConversationId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Coordinates_ZipCode",
+    "description": "Testing join with missing foreign key constraint: Coordinates.ZipCode -> ZipCode (CoordinatesId)",
+    "sql": "SELECT s.`id` AS source_id, s.`latitude` AS source_latitude, s.`longitude` AS source_longitude, t.`id` AS target_id, t.`CoordinatesId` AS target_CoordinatesId, t.`StateId` AS target_StateId  FROM `coordinates` s JOIN `zip_codes` t ON s.`CoordinatesId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Coordinates_Address",
+    "description": "Testing join with missing foreign key constraint: Coordinates.Address -> Address (CoordinatesId)",
+    "sql": "SELECT s.`id` AS source_id, s.`latitude` AS source_latitude, s.`longitude` AS source_longitude, t.`id` AS target_id, t.`line1` AS target_line1, t.`line2` AS target_line2  FROM `coordinates` s JOIN `addresses` t ON s.`CoordinatesId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_County_City",
+    "description": "Testing join with missing foreign key constraint: County.Cities -> City (CountyId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`shortName` AS source_shortName, t.`id` AS target_id, t.`name` AS target_name, t.`expandedName` AS target_expandedName  FROM `counties` s JOIN `cities` t ON s.`CountyId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_County_Address",
+    "description": "Testing join with missing foreign key constraint: County.Addresses -> Address (CountyId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`shortName` AS source_shortName, t.`id` AS target_id, t.`line1` AS target_line1, t.`line2` AS target_line2  FROM `counties` s JOIN `addresses` t ON s.`CountyId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_County_BusinessCountySubscription",
+    "description": "Testing join with missing foreign key constraint: County.BusinessCountySubscriptions -> BusinessCountySubscription (CountyId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`shortName` AS source_shortName, t.`BusinessId` AS target_BusinessId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `counties` s JOIN `business_county_subscriptions` t ON s.`CountyId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_County_BusinessCountyExclusion",
+    "description": "Testing join with missing foreign key constraint: County.BusinessCountyExclusions -> BusinessCountyExclusion (CountyId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`shortName` AS source_shortName, t.`BusinessId` AS target_BusinessId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `counties` s JOIN `business_county_exclusions` t ON s.`CountyId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Image_Business",
+    "description": "Testing join with missing foreign key constraint: Image.Logo -> Business (LogoId)",
+    "sql": "SELECT s.`id` AS source_id, s.`url` AS source_url, s.`description` AS source_description, t.`id` AS target_id, t.`name` AS target_name, t.`website` AS target_website  FROM `images` s JOIN `businesses` t ON s.`LogoId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Image_User",
+    "description": "Testing join with missing foreign key constraint: Image.Avatar -> User (AvatarId)",
+    "sql": "SELECT s.`id` AS source_id, s.`url` AS source_url, s.`description` AS source_description, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `images` s JOIN `users` t ON s.`AvatarId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_FavoriteIncident",
+    "description": "Testing join with missing foreign key constraint: Incident.Favorite -> FavoriteIncident (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`UserId` AS target_UserId, t.`IncidentId` AS target_IncidentId  FROM `incidents` s JOIN `user_favorite_incidents` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentUpdate",
+    "description": "Testing join with missing foreign key constraint: Incident.Updates -> IncidentUpdate (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`description` AS target_description, t.`time` AS target_time  FROM `incidents` s JOIN `incident_updates` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentNote",
+    "description": "Testing join with missing foreign key constraint: Incident.Notes -> IncidentNote (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`description` AS target_description, t.`paged` AS target_paged  FROM `incidents` s JOIN `incident_notes` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentTypeChange",
+    "description": "Testing join with missing foreign key constraint: Incident.TypeChanges -> IncidentTypeChange (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`OldIncidentType` AS target_OldIncidentType, t.`NewIncidentType` AS target_NewIncidentType  FROM `incidents` s JOIN `incident_type_changes` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentLocationNote",
+    "description": "Testing join with missing foreign key constraint: Incident.LocationNotes -> IncidentLocationNote (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`description` AS target_description, t.`createdAt` AS target_createdAt  FROM `incidents` s JOIN `incident_location_notes` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_UserIncidentArchive",
+    "description": "Testing join with missing foreign key constraint: Incident.UserIncidentArchives -> UserIncidentArchive (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`IncidentId` AS target_IncidentId, t.`UserId` AS target_UserId  FROM `incidents` s JOIN `user_incident_archives` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentAddressChange",
+    "description": "Testing join with missing foreign key constraint: Incident.AddressChanges -> IncidentAddressChange (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`paged` AS target_paged, t.`createdAt` AS target_createdAt  FROM `incidents` s JOIN `incident_address_changes` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentViewed",
+    "description": "Testing join with missing foreign key constraint: Incident.IncidentViewed -> IncidentViewed (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`UserId` AS target_UserId, t.`viewed` AS target_viewed  FROM `incidents` s JOIN `incident_viewed` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentAlarmChanged",
+    "description": "Testing join with missing foreign key constraint: Incident.IncidentAlarmHistory -> IncidentAlarmChanged (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`previous` AS target_previous, t.`current` AS target_current  FROM `incidents` s JOIN `incident_alarm_changed` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentClosed",
+    "description": "Testing join with missing foreign key constraint: Incident.ClosedHistory -> IncidentClosed (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`IncidentId` AS target_IncidentId, t.`CreatorId` AS target_CreatorId  FROM `incidents` s JOIN `incident_closed` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Incident_IncidentCreatorChange",
+    "description": "Testing join with missing foreign key constraint: Incident.IncidentCreatorChanges -> IncidentCreatorChange (IncidentId)",
+    "sql": "SELECT s.`id` AS source_id, s.`verified` AS source_verified, s.`legalVerified` AS source_legalVerified, t.`id` AS target_id, t.`IncidentId` AS target_IncidentId, t.`OldCreatorId` AS target_OldCreatorId  FROM `incidents` s JOIN `incident_creator_changes` t ON s.`IncidentId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_IncidentPreset_IncidentType",
+    "description": "Testing join with missing foreign key constraint: IncidentPreset.IncidentType -> IncidentType (IncidentTypeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name, t.`DamageTypeId` AS target_DamageTypeId  FROM `incident_presets` s JOIN `incident_types` t ON s.`IncidentTypeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_IncidentPreset_StructureType",
+    "description": "Testing join with missing foreign key constraint: IncidentPreset.StructureType -> StructureType (StructureTypeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name  FROM `incident_presets` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_IncidentPresetShortcut_StructureType",
+    "description": "Testing join with missing foreign key constraint: IncidentPresetShortcut.StructureType -> StructureType (StructureTypeId)",
+    "sql": "SELECT s.`code` AS source_code, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name  FROM `incident_preset_shortcuts` s JOIN `structure_types` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_IncidentPresetShortcut_IncidentType",
+    "description": "Testing join with missing foreign key constraint: IncidentPresetShortcut.IncidentType -> IncidentType (IncidentTypeId)",
+    "sql": "SELECT s.`code` AS source_code, s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, t.`id` AS target_id, t.`name` AS target_name, t.`DamageTypeId` AS target_DamageTypeId  FROM `incident_preset_shortcuts` s JOIN `incident_types` t ON s.`IncidentTypeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_PasswordReset_User",
+    "description": "Testing join with missing foreign key constraint: PasswordReset.User -> User (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`createdAt` AS source_createdAt, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `password_resets` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Setting_UserSetting",
+    "description": "Testing join with missing foreign key constraint: Setting.UserSettings -> UserSetting (SettingId)",
+    "sql": "SELECT s.`id` AS source_id, s.`group` AS source_group, s.`isArray` AS source_isArray, t.`id` AS target_id, t.`value` AS target_value, t.`SoundId` AS target_SoundId  FROM `settings` s JOIN `user_settings` t ON s.`SettingId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_State_County",
+    "description": "Testing join with missing foreign key constraint: State.Counties -> County (StateId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, s.`fipsCode` AS source_fipsCode, t.`id` AS target_id, t.`name` AS target_name, t.`shortName` AS target_shortName  FROM `states` s JOIN `counties` t ON s.`StateId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_StructureType_Incident",
+    "description": "Testing join with missing foreign key constraint: StructureType.Incidents -> Incident (StructureTypeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`name` AS source_name, t.`id` AS target_id, t.`verified` AS target_verified, t.`legalVerified` AS target_legalVerified  FROM `structure_types` s JOIN `incidents` t ON s.`StructureTypeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_Token_User",
+    "description": "Testing join with missing foreign key constraint: Token.User -> User (userId)",
+    "sql": "SELECT s.`id` AS source_id, s.`userId` AS source_userId, s.`deviceId` AS source_deviceId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `tokens` s JOIN `users` t ON s.`userId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserRole",
+    "description": "Testing join with missing foreign key constraint: User.UserRole -> UserRole (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`RoleId` AS target_RoleId, t.`UserId` AS target_UserId  FROM `users` s JOIN `user_roles` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_Notification",
+    "description": "Testing join with missing foreign key constraint: User.Notifications -> Notification (RecipientId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`id` AS target_id, t.`title` AS target_title, t.`subtitle` AS target_subtitle  FROM `users` s JOIN `notifications` t ON s.`RecipientId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserStructureTypeSubscription",
+    "description": "Testing join with missing foreign key constraint: User.StructureTypeSubscriptions -> UserStructureTypeSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`StructureTypeId` AS target_StructureTypeId, t.`UserId` AS target_UserId  FROM `users` s JOIN `user_structure_type_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserDamageTypeSubscription",
+    "description": "Testing join with missing foreign key constraint: User.DamageTypeSubscriptions -> UserDamageTypeSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`DamageTypeId` AS target_DamageTypeId, t.`UserId` AS target_UserId  FROM `users` s JOIN `user_damage_type_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_Message",
+    "description": "Testing join with missing foreign key constraint: User.Sender -> Message (SenderId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`id` AS target_id, t.`type` AS target_type, t.`content` AS target_content  FROM `users` s JOIN `messages` t ON s.`SenderId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_Conversation",
+    "description": "Testing join with missing foreign key constraint: User.Owner -> Conversation (OwnerId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`id` AS target_id, t.`createdAt` AS target_createdAt, t.`updatedAt` AS target_updatedAt  FROM `users` s JOIN `conversations` t ON s.`OwnerId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserIncidentArchive",
+    "description": "Testing join with missing foreign key constraint: User.UserIncidentArchives -> UserIncidentArchive (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`IncidentId` AS target_IncidentId, t.`UserId` AS target_UserId  FROM `users` s JOIN `user_incident_archives` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserSetting",
+    "description": "Testing join with missing foreign key constraint: User.UserSettings -> UserSetting (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`id` AS target_id, t.`value` AS target_value, t.`SoundId` AS target_SoundId  FROM `users` s JOIN `user_settings` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserCitySubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserCitySubscriptions -> UserCitySubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`CityId` AS target_CityId  FROM `users` s JOIN `user_city_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserCountySubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserCountySubscriptions -> UserCountySubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `users` s JOIN `user_county_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserStateSubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserStateSubscriptions -> UserStateSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`StateId` AS target_StateId, t.`allCounties` AS target_allCounties  FROM `users` s JOIN `user_state_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserPresetSubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserPresetSubscriptions -> UserPresetSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`StructureTypeId` AS target_StructureTypeId, t.`IncidentTypeId` AS target_IncidentTypeId  FROM `users` s JOIN `user_preset_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserStructureIncidentSubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserStructureIncidentSubscriptions -> UserStructureIncidentSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`StructureTypeId` AS target_StructureTypeId, t.`IncidentTypeId` AS target_IncidentTypeId, t.`UserId` AS target_UserId  FROM `users` s JOIN `user_structure_incident_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserCountyExclusion",
+    "description": "Testing join with missing foreign key constraint: User.UserCountyExclusions -> UserCountyExclusion (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`CountyId` AS target_CountyId, t.`allCities` AS target_allCities  FROM `users` s JOIN `user_county_exclusions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserCityExclusion",
+    "description": "Testing join with missing foreign key constraint: User.UserCityExclusions -> UserCityExclusion (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`CityId` AS target_CityId  FROM `users` s JOIN `user_city_exclusions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserZipCodeSubscription",
+    "description": "Testing join with missing foreign key constraint: User.UserZipCodeSubscriptions -> UserZipCodeSubscription (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `users` s JOIN `user_zip_code_subscriptions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_User_UserZipCodeExclusion",
+    "description": "Testing join with missing foreign key constraint: User.UserZipCodeExclusions -> UserZipCodeExclusion (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`firstName` AS source_firstName, s.`lastName` AS source_lastName, t.`UserId` AS target_UserId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `users` s JOIN `user_zip_code_exclusions` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_UserCountyExclusion_County",
+    "description": "Testing join with missing foreign key constraint: UserCountyExclusion.County -> County (CountyId)",
+    "sql": "SELECT s.`UserId` AS source_UserId, s.`CountyId` AS source_CountyId, s.`allCities` AS source_allCities, t.`id` AS target_id, t.`name` AS target_name, t.`shortName` AS target_shortName  FROM `user_county_exclusions` s JOIN `counties` t ON s.`CountyId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_UserSetting_User",
+    "description": "Testing join with missing foreign key constraint: UserSetting.User -> User (UserId)",
+    "sql": "SELECT s.`id` AS source_id, s.`value` AS source_value, s.`SoundId` AS source_SoundId, t.`id` AS target_id, t.`firstName` AS target_firstName, t.`lastName` AS target_lastName  FROM `user_settings` s JOIN `users` t ON s.`UserId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_UserStructureIncidentSubscription_Sound",
+    "description": "Testing join with missing foreign key constraint: UserStructureIncidentSubscription.Sound -> Sound (SoundId)",
+    "sql": "SELECT s.`StructureTypeId` AS source_StructureTypeId, s.`IncidentTypeId` AS source_IncidentTypeId, s.`UserId` AS source_UserId, t.`id` AS target_id, t.`name` AS target_name, t.`ChannelId` AS target_ChannelId  FROM `user_structure_incident_subscriptions` s JOIN `sounds` t ON s.`SoundId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_ZipCode_Address",
+    "description": "Testing join with missing foreign key constraint: ZipCode.Address -> Address (ZipCodeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`CoordinatesId` AS source_CoordinatesId, s.`StateId` AS source_StateId, t.`id` AS target_id, t.`line1` AS target_line1, t.`line2` AS target_line2  FROM `zip_codes` s JOIN `addresses` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_ZipCode_BusinessZipCodeSubscription",
+    "description": "Testing join with missing foreign key constraint: ZipCode.BusinessZipCodeSubscriptions -> BusinessZipCodeSubscription (ZipCodeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`CoordinatesId` AS source_CoordinatesId, s.`StateId` AS source_StateId, t.`BusinessId` AS target_BusinessId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `zip_codes` s JOIN `business_zip_code_subscriptions` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "relationship_ZipCode_BusinessZipCodeExclusion",
+    "description": "Testing join with missing foreign key constraint: ZipCode.BusinessZipCodeExclusions -> BusinessZipCodeExclusion (ZipCodeId)",
+    "sql": "SELECT s.`id` AS source_id, s.`CoordinatesId` AS source_CoordinatesId, s.`StateId` AS source_StateId, t.`BusinessId` AS target_BusinessId, t.`ZipCodeId` AS target_ZipCodeId, t.`radius` AS target_radius  FROM `zip_codes` s JOIN `business_zip_code_exclusions` t ON s.`ZipCodeId` = t.`id` LIMIT 100",
+    "weight": 5
+  },
+  {
+    "name": "baseline_query_simple_select",
+    "description": "Baseline simple select query",
+    "sql": "SELECT 1",
+    "weight": 1
+  },
+  {
+    "name": "baseline_select_address_assessments",
+    "description": "Baseline table select for comparison",
+    "sql": "SELECT * FROM address_assessments LIMIT 10",
+    "weight": 2
+  }
+]
