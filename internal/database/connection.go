@@ -16,7 +16,7 @@ func Connect(dsn string, concurrency int) (*sql.DB, error) {
 		return nil, fmt.Errorf("error connecting to database: %w", err)
 	}
 
-	db.SetMaxOpenConns(concurrency * 2) 
+	db.SetMaxOpenConns(concurrency * 2)
 	db.SetMaxIdleConns(concurrency)
 	db.SetConnMaxLifetime(time.Minute * 5)
 
@@ -30,28 +30,28 @@ func Connect(dsn string, concurrency int) (*sql.DB, error) {
 
 func TestConnection(dsn string) error {
 	log.Println("Testing database connection...")
-	
+
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return fmt.Errorf("error opening database connection: %w", err)
 	}
 	defer db.Close()
-	
+
 	startTime := time.Now()
 	if err := db.Ping(); err != nil {
 		return fmt.Errorf("error connecting to database: %w", err)
 	}
 	pingTime := time.Since(startTime)
-	
+
 	log.Printf("✓ Database connection successful! (Ping time: %v)", pingTime)
-	
+
 	var version string
 	if err := db.QueryRow("SELECT VERSION()").Scan(&version); err != nil {
 		log.Printf("Warning: Could not get database version: %v", err)
 	} else {
 		log.Printf("✓ Connected to MySQL server version: %s", version)
 	}
-	
+
 	info, err := GetConnectionInfo(db)
 	if err != nil {
 		log.Printf("Warning: Could not get detailed connection info: %v", err)
@@ -64,7 +64,7 @@ func TestConnection(dsn string) error {
 		log.Printf("  - Uptime: %d seconds", info.Uptime)
 		log.Printf("  - Questions per second: %.2f", info.QuestionsPerSec)
 	}
-	
+
 	startTime = time.Now()
 	rows, err := db.Query("SELECT 1")
 	if err != nil {
@@ -74,7 +74,7 @@ func TestConnection(dsn string) error {
 		queryTime := time.Since(startTime)
 		log.Printf("✓ Simple query test successful! (Query time: %v)", queryTime)
 	}
-	
+
 	startTime = time.Now()
 	rows, err = db.Query("SHOW TABLES")
 	if err != nil {
@@ -88,7 +88,7 @@ func TestConnection(dsn string) error {
 		queryTime := time.Since(startTime)
 		log.Printf("✓ Found %d tables in the database (Query time: %v)", tableCount, queryTime)
 	}
-	
+
 	return nil
 }
 

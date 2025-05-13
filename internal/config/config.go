@@ -10,15 +10,15 @@ import (
 )
 
 type Config struct {
-	DSN              string        `json:"dsn"`               // Database connection string
-	QueriesFile      string        `json:"queriesFile"`       // Path to critical queries JSON file
-	OutputDir        string        `json:"outputDir"`         // Directory to save results
-	Iterations       int           `json:"iterations"`        // Number of iterations per query
-	Concurrency      int           `json:"concurrency"`       // Maximum concurrent queries
-	WarmupIterations int           `json:"warmupIterations"`  // Warmup iterations to stabilize connection pool
-	Label            string        `json:"label"`             // Test run label (e.g., "before" or "after")
-	Timeout          time.Duration `json:"timeoutSeconds"`    // Query timeout in seconds
-	Verbose          bool          `json:"verbose"`           // Verbose output
+	DSN              string        `json:"dsn"`              // Database connection string
+	QueriesFile      string        `json:"queriesFile"`      // Path to critical queries JSON file
+	OutputDir        string        `json:"outputDir"`        // Directory to save results
+	Iterations       int           `json:"iterations"`       // Number of iterations per query
+	Concurrency      int           `json:"concurrency"`      // Maximum concurrent queries
+	WarmupIterations int           `json:"warmupIterations"` // Warmup iterations to stabilize connection pool
+	Label            string        `json:"label"`            // Test run label (e.g., "before" or "after")
+	Timeout          time.Duration `json:"timeoutSeconds"`   // Query timeout in seconds
+	Verbose          bool          `json:"verbose"`          // Verbose output
 }
 
 func LoadConfig(path string) (*Config, error) {

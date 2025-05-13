@@ -251,8 +251,8 @@ func parseIntVar64(target *int64, vars map[string]string, key string) {
 	}
 }
 
-func parseFloatVar(target *float64, vars map[string]string, key string) {
-	if val, ok := vars[key]; ok {
-		fmt.Sscanf(val, "%f", target)
-	}
-}
+// func parseFloatVar(target *float64, vars map[string]string, key string) {
+// 	if val, ok := vars[key]; ok {
+// 		fmt.Sscanf(val, "%f", target)
+// 	}
+// }

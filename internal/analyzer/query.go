@@ -77,13 +77,13 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 
 	for i, query := range queries {
 		results[i] = model.QueryResult{
-			Name:         query.Name,
-			Description:  query.Description,
-			SQL:          query.SQL,
-			MinDuration:  time.Hour, 
-			Weight:       query.Weight,
+			Name:            query.Name,
+			Description:     query.Description,
+			SQL:             query.SQL,
+			MinDuration:     time.Hour,
+			Weight:          query.Weight,
 			QueryComplexity: AnalyzeQueryComplexity(query.SQL),
-			Executions:   make([]model.QueryExecution, 0, iterations),
+			Executions:      make([]model.QueryExecution, 0, iterations),
 		}
 	}
 
@@ -97,17 +97,17 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 				log.Printf("Testing query: %s", q.Name)
 			}
 
-			for iter := 0; iter < iterations; iter++ {
+			for iter := range iterations {
 				qe.semaphore <- struct{}{}
 
 				execution := qe.ExecuteQuery(q.SQL)
-				
+
 				<-qe.semaphore
 
 				if len(result.Executions) == 0 {
 					result.FirstExecutedAt = execution.StartTime
 				}
-				
+
 				result.LastExecutedAt = execution.StartTime
 
 				qe.mutex.Lock()
@@ -116,7 +116,7 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 
 				if execution.Error != nil {
 					result.Errors++
-					if len(result.ErrorDetails) < 10 { 
+					if len(result.ErrorDetails) < 10 {
 						result.ErrorDetails = append(result.ErrorDetails, execution.ErrorMessage)
 					}
 				} else {
@@ -134,12 +134,12 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 
 				qe.mutex.Unlock()
 
-				if qe.verbose && (iter == 0 || (iter+1) % 10 == 0) {
+				if qe.verbose && (iter == 0 || (iter+1)%10 == 0) {
 					if execution.Error != nil {
-						log.Printf("Query %s iteration %d: ERROR - %s", 
+						log.Printf("Query %s iteration %d: ERROR - %s",
 							q.Name, iter+1, execution.ErrorMessage)
 					} else {
-						log.Printf("Query %s iteration %d: %v, %d rows", 
+						log.Printf("Query %s iteration %d: %v, %d rows",
 							q.Name, iter+1, execution.Duration, execution.RowCount)
 					}
 				}
@@ -147,14 +147,14 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 
 			if result.SuccessfulExecutions > 0 {
 				result.AvgDuration = result.TotalDuration / time.Duration(result.SuccessfulExecutions)
-				
+
 				durations := make([]time.Duration, 0, result.SuccessfulExecutions)
 				for _, exec := range result.Executions {
 					if exec.Error == nil {
 						durations = append(durations, exec.Duration)
 					}
 				}
-				
+
 				if len(durations) > 0 {
 					stats := utils.CalculateStats(durations)
 					result.Percentile95 = stats.P95
@@ -167,8 +167,8 @@ func (qe *QueryExecutor) ExecuteBatch(queries []model.Query, iterations int) []m
 			if qe.verbose {
 				avgMs := float64(result.AvgDuration.Microseconds()) / 1000
 				p95Ms := float64(result.Percentile95.Microseconds()) / 1000
-				
-				log.Printf("Results for %s: %.2f ms avg, %.2f ms p95, %d rows, %s complexity", 
+
+				log.Printf("Results for %s: %.2f ms avg, %.2f ms p95, %d rows, %s complexity",
 					q.Name, avgMs, p95Ms, result.RowsAffected, result.QueryComplexity)
 			}
 		}(i, query)
@@ -182,28 +182,28 @@ func CreateTestQueries(allQueries []model.Query, testType string, limit int) ([]
 	switch testType {
 	case "all":
 		return allQueries, nil
-		
+
 	case "consistency":
 		return filterQueriesByType(allQueries, "consistency", limit)
-		
+
 	case "datatype":
 		return filterQueriesByType(allQueries, "datatype", limit)
-		
+
 	case "relationship":
 		return filterQueriesByType(allQueries, "relationship", limit)
-		
+
 	case "top":
 		sortedQueries := make([]model.Query, len(allQueries))
 		copy(sortedQueries, allQueries)
 		sort.Slice(sortedQueries, func(i, j int) bool {
 			return sortedQueries[i].Weight > sortedQueries[j].Weight
 		})
-		
+
 		if limit > 0 && limit < len(sortedQueries) {
 			return sortedQueries[:limit], nil
 		}
 		return sortedQueries, nil
-		
+
 	default:
 		return nil, fmt.Errorf("unknown test type: %s", testType)
 	}
@@ -211,21 +211,21 @@ func CreateTestQueries(allQueries []model.Query, testType string, limit int) ([]
 
 func filterQueriesByType(allQueries []model.Query, queryType string, limit int) ([]model.Query, error) {
 	var filtered []model.Query
-	
+
 	for _, q := range allQueries {
 		if strings.HasPrefix(strings.ToLower(q.Name), strings.ToLower(queryType)) {
 			filtered = append(filtered, q)
 		}
 	}
-	
+
 	if len(filtered) == 0 {
 		return nil, fmt.Errorf("no queries found of type: %s", queryType)
 	}
-	
+
 	if limit > 0 && limit < len(filtered) {
 		return filtered[:limit], nil
 	}
-	
+
 	return filtered, nil
 }
 
@@ -234,31 +234,31 @@ func SaveTestQueries(queries []model.Query, outputPath string) error {
 	if err != nil {
 		return fmt.Errorf("error marshaling queries: %w", err)
 	}
-	
+
 	if err := os.WriteFile(outputPath, data, 0644); err != nil {
 		return fmt.Errorf("error writing queries file: %w", err)
 	}
-	
+
 	log.Printf("Saved %d queries to %s", len(queries), outputPath)
 	return nil
 }
 
 func ClassifyErrors(results []model.QueryResult) map[string]int {
 	errorTypes := make(map[string]int)
-	
+
 	for _, result := range results {
 		for _, errMsg := range result.ErrorDetails {
 			errType := classifyErrorMessage(errMsg)
 			errorTypes[errType]++
 		}
 	}
-	
+
 	return errorTypes
 }
 
 func classifyErrorMessage(errMsg string) string {
 	errMsg = strings.ToLower(errMsg)
-	
+
 	if strings.Contains(errMsg, "deadlock") {
 		return "Deadlock"
 	} else if strings.Contains(errMsg, "lock wait timeout") {
@@ -282,10 +282,10 @@ func GenerateQueryExplain(db *sql.DB, query string) (string, error) {
 	if !strings.HasPrefix(strings.ToLower(strings.TrimSpace(query)), "select") {
 		return "EXPLAIN not available for non-SELECT queries", nil
 	}
-	
+
 	explainQuery := "EXPLAIN FORMAT=JSON " + query
 	var explainResult string
-	
+
 	err := db.QueryRow(explainQuery).Scan(&explainResult)
 	if err != nil {
 		rows, err := db.Query("EXPLAIN " + query)
@@ -293,31 +293,31 @@ func GenerateQueryExplain(db *sql.DB, query string) (string, error) {
 			return "", fmt.Errorf("error getting query explain plan: %w", err)
 		}
 		defer rows.Close()
-		
+
 		var result strings.Builder
 		columns, err := rows.Columns()
 		if err != nil {
 			return "", err
 		}
-		
+
 		result.WriteString(strings.Join(columns, " | "))
 		result.WriteString("\n")
 		for range columns {
 			result.WriteString("--- | ")
 		}
 		result.WriteString("\n")
-		
+
 		values := make([]interface{}, len(columns))
 		valuePtrs := make([]interface{}, len(columns))
 		for i := range values {
 			valuePtrs[i] = &values[i]
 		}
-		
+
 		for rows.Next() {
 			if err := rows.Scan(valuePtrs...); err != nil {
 				return "", err
 			}
-			
+
 			for i, val := range values {
 				var valStr string
 				b, ok := val.([]byte)
@@ -326,7 +326,7 @@ func GenerateQueryExplain(db *sql.DB, query string) (string, error) {
 				} else {
 					valStr = fmt.Sprintf("%v", val)
 				}
-				
+
 				if i > 0 {
 					result.WriteString(" | ")
 				}
@@ -334,9 +334,9 @@ func GenerateQueryExplain(db *sql.DB, query string) (string, error) {
 			}
 			result.WriteString("\n")
 		}
-		
+
 		return result.String(), nil
 	}
-	
+
 	return explainResult, nil
 }
